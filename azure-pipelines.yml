@@ -30,14 +30,17 @@ stages:
         repository: vote
         tags: |
           $(tag)
+  - job: Scan
+    displayName: Lacework vuln scan
+    dependsOn: Build
+    steps:
     - script: |
         docker run \
         -e LW_ACCOUNT_NAME=$LW_ACCOUNT_NAME \
         -e LW_ACCESS_TOKEN=$LW_ACCESS_TOKEN \
         -v /var/run/docker.sock:/var/run/docker.sock \
         lacework/lacework-inline-scanner:latest \
-        image evaluate vote $(Build.BuildId) \
+        image evaluate vote $(tag) \
       env:
         LW_ACCOUNT_NAME: $(LW_ACCOUNT_NAME)
         LW_ACCESS_TOKEN: $(LW_ACCESS_TOKEN)
-      displayName: 'lacework vuln scan'
