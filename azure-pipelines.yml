@@ -1,0 +1,43 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+  LW_ACCOUNT_NAME: lwintmarkfink
+  LW_ACCESS_TOKEN: _153ea96f1f6de9fa38c6b6a1835a778a
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/vote/Dockerfile'
+        repository: vote
+        tags: |
+          $(tag)
+    - script: |
+        docker run \
+        -e LW_ACCOUNT_NAME=$LW_ACCOUNT_NAME \
+        -e LW_ACCESS_TOKEN=$LW_ACCESS_TOKEN \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        lacework/lacework-inline-scanner:latest \
+        image evaluate vote $(Build.BuildId) \
+      env:
+        LW_ACCOUNT_NAME: $(LW_ACCOUNT_NAME)
+        LW_ACCESS_TOKEN: $(LW_ACCESS_TOKEN)
+      displayName: 'lacework vuln scan'
