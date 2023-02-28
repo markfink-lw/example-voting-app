@@ -40,5 +40,5 @@ stages:
       env:
         LW_ACCOUNT_NAME: $(LW_ACCOUNT_NAME)
         LW_ACCESS_TOKEN: $(LW_ACCESS_TOKEN)
+        LW_SCANNER_SAVE_RESULTS: true
       displayName: Lacework vuln scan
-      
