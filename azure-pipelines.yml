@@ -18,7 +18,7 @@ stages:
   displayName: Build and scan a Docker image
   jobs:
   - job: Build
-    displayName: Build
+    displayName: Build and scan
     pool:
       vmImage: ubuntu-latest
     steps:
