@@ -15,7 +15,7 @@ variables:
 
 stages:
 - stage: Build
-  displayName: Build image
+  displayName: Build and scan image
   jobs:
   - job: Build
     displayName: Build
@@ -30,10 +30,6 @@ stages:
         repository: vote
         tags: |
           $(tag)
-  - job: Scan
-    displayName: Lacework vuln scan
-    dependsOn: Build
-    steps:
     - script: |
         docker run \
         -e LW_ACCOUNT_NAME=$LW_ACCOUNT_NAME \
@@ -44,3 +40,5 @@ stages:
       env:
         LW_ACCOUNT_NAME: $(LW_ACCOUNT_NAME)
         LW_ACCESS_TOKEN: $(LW_ACCESS_TOKEN)
+      displayName: Lacework vuln scan
+      
