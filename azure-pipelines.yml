@@ -14,7 +14,7 @@ variables:
   LW_ACCESS_TOKEN: _153ea96f1f6de9fa38c6b6a1835a778a
 
 stages:
-- stage: Build and Scan
+- stage: Build_and_Scan
   displayName: Build and scan a Docker image
   jobs:
   - job: Build
