@@ -10,8 +10,6 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
-  LW_ACCOUNT_NAME: lwintmarkfink
-  LW_ACCESS_TOKEN: _153ea96f1f6de9fa38c6b6a1835a778a
 
 stages:
 - stage: Build_and_Scan
@@ -32,8 +30,8 @@ stages:
           $(tag)
     - script: |
         docker run \
-        -e LW_ACCOUNT_NAME=$LW_ACCOUNT_NAME \
-        -e LW_ACCESS_TOKEN=$LW_ACCESS_TOKEN \
+        -e LW_ACCOUNT_NAME=$(LW_ACCOUNT_NAME) \
+        -e LW_ACCESS_TOKEN=$(LW_ACCESS_TOKEN) \
         -e LW_SCANNER_SAVE_RESULTS=true \
         -v /var/run/docker.sock:/var/run/docker.sock \
         lacework/lacework-inline-scanner:latest \
