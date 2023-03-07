@@ -40,9 +40,9 @@ stages:
         # apt-get -y install curl
         # curl -L https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-linux-amd64 -o lw-scanner
         # chmod u+x lw-scanner
-        # ./lw-scanner image evaluate azure.devops/app latest --policy --critical-violation-exit-code 2
-      env:
-        LW_ACCOUNT_NAME: $(LW_ACCOUNT_NAME)
-        LW_ACCESS_TOKEN: $(LW_ACCESS_TOKEN)
-        LW_SCANNER_SAVE_RESULTS: true
+        # ./lw-scanner image evaluate vote $(tag) --policy --critical-violation-exit-code 2
       displayName: Lacework vuln scan
+      #env:
+      #  LW_ACCOUNT_NAME: $(LW_ACCOUNT_NAME)
+      #  LW_ACCESS_TOKEN: $(LW_ACCESS_TOKEN)
+      #  LW_SCANNER_SAVE_RESULTS: true
