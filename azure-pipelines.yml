@@ -25,7 +25,7 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/vote/Dockerfile'
-        repository: vote
+        repository: totally1234random
         tags: |
           $(tag)
     - task: CmdLine@2
@@ -48,4 +48,4 @@ stages:
           apt-get -y install curl
           curl -L https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-linux-amd64 -o lw-scanner
           chmod u+x lw-scanner
-          ./lw-scanner image evaluate vote $(tag) --debug -v
+          ./lw-scanner image evaluate totally1234random $(tag) --debug -v
