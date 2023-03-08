@@ -25,7 +25,8 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/vote/Dockerfile'
-        repository: "***/totally1234random"
+        containerRegistry: "***"
+        repository: totally1234random
         tags: |
           $(tag)
     - task: CmdLine@2
