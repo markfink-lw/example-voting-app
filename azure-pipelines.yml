@@ -26,8 +26,7 @@ stages:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/vote/Dockerfile'
         containerRegistry: $(registry)
-        repository: vote
-        arguments: "-t $(registry)/vote"
+        repository: $(registry)/vote
         tags: |
           $(tag)
     - task: CmdLine@2
