@@ -47,4 +47,4 @@ stages:
           docker images
           curl -L https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-linux-amd64 -o lw-scanner
           chmod u+x lw-scanner
-          ./lw-scanner image evaluate $(registry)/vote $(tag) --debug -v
+          ./lw-scanner image evaluate $(containerRegistry)/vote $(tag) --debug -v
