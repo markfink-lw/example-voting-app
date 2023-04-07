@@ -25,7 +25,6 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/vote/Dockerfile'
-        containerRegistry: $(registry)
         repository: $(registry)/vote
         tags: |
           $(tag)
@@ -44,7 +43,6 @@ stages:
           #-v /var/run/docker.sock:/var/run/docker.sock \
           #lacework/lacework-inline-scanner:latest \
           #image evaluate vote $(tag) --policy --critical-violation-exit-code 2
-          docker images
           curl -L https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-linux-amd64 -o lw-scanner
           chmod u+x lw-scanner
-          ./lw-scanner image evaluate $(containerRegistry)/vote $(tag) --debug -v
+          ./lw-scanner image evaluate $(registry)/vote $(tag) --policy --critical-violation-exit-code 2
