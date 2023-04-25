@@ -30,12 +30,12 @@ stages:
           $(tag)
     - task: CmdLine@2
       displayName: Lacework vuln scan
+      env:
+        LW_ACCOUNT_NAME: $(LW_ACCOUNT_NAME)
+        LW_ACCESS_TOKEN: $(LW_ACCESS_TOKEN)
+        LW_SCANNER_SAVE_RESULTS: true
       inputs:
         script: |
-          docker run \
-          -e LW_ACCOUNT_NAME=$(LW_ACCOUNT_NAME) \
-          -e LW_ACCESS_TOKEN=$(LW_ACCESS_TOKEN) \
-          -e LW_SCANNER_SAVE_RESULTS=true \
-          -v /var/run/docker.sock:/var/run/docker.sock \
-          lacework/lacework-inline-scanner:latest \
-          image evaluate $(registry)/vote $(tag) --policy --critical-violation-exit-code 2
+          curl -L https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-linux-amd64 -o lw-scanner
+          chmod u+x lw-scanner
+          ./lw-scanner image evaluate $(registry)/vote $(tag) --policy --critical-violation-exit-code 2
